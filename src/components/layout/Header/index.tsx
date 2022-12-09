@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom'
 import { Logo } from '../Logo'
 
 export const Header = () => {
@@ -9,10 +8,10 @@ export const Header = () => {
       <nav className="flex items-center gap-4">
         <ul className="flex items-center gap-4">
           <li>
-            <NavLink to="">Home</NavLink>
+            <a href="#home">Home</a>
           </li>
           <li>
-            <NavLink to="">About</NavLink>
+            <a href="#">About</a>
           </li>
         </ul>
       </nav>
