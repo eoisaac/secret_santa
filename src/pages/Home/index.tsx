@@ -25,10 +25,12 @@ export const Home = () => {
           autem dignissimos accusamus ipsum magnam!
         </p>
 
-        <Button
-          label="Get started"
-          icon={<CaretRight weight="bold" size={20} />}
-        />
+        <a href="#creation">
+          <Button
+            label="Get started"
+            icon={<CaretRight weight="bold" size={20} />}
+          />
+        </a>
       </div>
       <div
         className="mt-4 h-72 w-72 overflow-hidden rounded-full

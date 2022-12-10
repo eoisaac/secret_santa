@@ -20,9 +20,16 @@
 }
 
 body {
-  @apply bg-violet-100 font-sans text-base font-normal text-slate-900 antialiased;
+  @apply scroll-smooth bg-violet-100 font-sans text-base font-normal text-slate-500 antialiased;
 }
 
 .page {
   @apply min-h-screen flex-1 p-4 pt-20;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 10rem;
+  }
 }

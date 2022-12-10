@@ -7,7 +7,7 @@ export const Logo = () => {
         alt="Santa Claus wearing black glasses"
         loading="lazy"
       />
-      <div className="font-semibold">
+      <div className="text-lg font-semibold text-slate-700">
         <span className="sr-only sm:not-sr-only">Santa</span>
         Secret
       </div>

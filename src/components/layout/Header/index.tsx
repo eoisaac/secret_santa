@@ -21,7 +21,7 @@ export const Header = () => {
         <Logo />
 
         <nav className="flex items-center gap-4">
-          <ul className="flex items-center gap-4">
+          <ul className="flex items-center gap-4 font-medium">
             <li>
               <a href="#home">Home</a>
             </li>
