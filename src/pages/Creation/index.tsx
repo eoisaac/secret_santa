@@ -1,8 +1,32 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { EnvelopeSimple } from 'phosphor-react'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as zod from 'zod'
 import { Button } from '../../components/Button'
 import { CreationForm } from './components/CreationForm'
 
 export const Creation = () => {
+  const creationFormSchema = zod.object({
+    message: zod.string(),
+    budget: zod.string().min(1, 'You must add the budget'),
+    date: zod.string().min(1, 'You must add the date'),
+    name: zod.string().min(1, 'You must add the name'),
+    number: zod.string().min(1, 'You must add the number'),
+  })
+
+  type CreationFormData = zod.infer<typeof creationFormSchema>
+
+  const creationForm = useForm<CreationFormData>({
+    resolver: zodResolver(creationFormSchema),
+  })
+  const { handleSubmit, reset, formState } = creationForm
+  const { errors } = formState
+
+  const handleCreation = (data: CreationFormData) => {
+    console.log(data)
+    reset()
+  }
+
   return (
     <section className="page flex flex-col items-stretch gap-4 text-center">
       <div
@@ -23,8 +47,13 @@ export const Creation = () => {
       </div>
 
       <div>
-        <form className="mx-auto flex max-w-lg flex-col items-center gap-4">
-          <CreationForm />
+        <form
+          onSubmit={handleSubmit(handleCreation)}
+          className="mx-auto flex max-w-lg flex-col items-center gap-4"
+        >
+          <FormProvider {...creationForm}>
+            <CreationForm errors={errors} />
+          </FormProvider>
           <Button
             label="Create"
             icon={<EnvelopeSimple weight="bold" />}

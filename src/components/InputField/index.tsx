@@ -1,4 +1,5 @@
 import { InputHTMLAttributes } from 'react'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: string
@@ -6,6 +7,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   srLabel?: boolean
   icon?: JSX.Element
   errorMessage?: string
+  register?: UseFormRegisterReturn<string>
 }
 
 export const InputField = ({
@@ -14,6 +16,7 @@ export const InputField = ({
   srLabel = false,
   errorMessage,
   icon,
+  register,
   ...rest
 }: InputFieldProps) => {
   const hasError = Boolean(errorMessage)
@@ -44,6 +47,7 @@ export const InputField = ({
         )}
         <input
           type={type}
+          {...register}
           {...rest}
           className="bg-transparent focus:shadow-none"
         />

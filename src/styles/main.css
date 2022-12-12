@@ -20,11 +20,12 @@
 }
 
 body {
-  @apply scroll-smooth bg-violet-100 font-sans text-base font-normal text-slate-500 antialiased;
+  @apply scroll-smooth bg-violet-100 font-sans text-base 
+    font-normal text-slate-500 antialiased;
 }
 
 .page {
-  @apply min-h-screen flex-1 p-4 pt-20;
+  @apply min-h-screen flex-1 p-2 pt-20 sm:p-4;
 }
 
 @layer base {
