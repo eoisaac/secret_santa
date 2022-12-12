@@ -47,7 +47,10 @@ export const CreationForm = () => {
           })}
         </ul>
       </fieldset>
-      <fieldset className="flex w-full flex-wrap items-center justify-center gap-2">
+      <fieldset
+        className="flex w-full flex-wrap items-center justify-center
+      gap-2"
+      >
         <legend>Infos</legend>
         <InputField
           label="Budget"
