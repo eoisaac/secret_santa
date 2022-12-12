@@ -20,7 +20,7 @@ export const InputField = ({
   const hasIcon = Boolean(icon)
 
   return (
-    <label className="w-ful group relative my-1">
+    <label className="group relative my-1">
       <span
         className={`${
           srLabel
@@ -31,8 +31,8 @@ export const InputField = ({
         {label}
       </span>
       <div
-        className="flex flex-1 items-center gap-2 overflow-hidden rounded-full
-      bg-slate-100 px-2 py-1 shadow-sm group-focus-within:shadow-focus"
+        className="flex flex-1 items-center gap-2 overflow-hidden rounded-md
+      bg-slate-50 px-2 py-1 shadow-sm group-focus-within:shadow-focus"
       >
         {hasIcon && (
           <div

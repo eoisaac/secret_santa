@@ -1,58 +1,61 @@
 import { Plus, User, WhatsappLogo, X } from 'phosphor-react'
+import { Button } from '../../../../components/Button'
 import { InputField } from '../../../../components/InputField'
 
 interface ParticipantFieldProps {
   add: () => void
-  remove?: () => void
-  isLast?: boolean
-  isCreator?: boolean
+  remove: (id: string) => void
+  id: string
+  isLast: boolean
 }
 
 export const ParticipantField = ({
   add,
   remove,
+  id,
   isLast,
-  isCreator,
 }: ParticipantFieldProps) => {
+  const handleRemove = () => {
+    remove(id)
+  }
   return (
-    <div className="flex flex-wrap items-center gap-1">
-      <InputField label="Name" srLabel icon={<User weight="bold" />} />
-      <div className="flex items-center gap-1">
+    <li className="flex items-center justify-center gap-1">
+      <div className="flex flex-col items-center gap-1 sm:flex-row">
         <InputField
           label="Name"
           srLabel
+          icon={<User weight="bold" />}
+          name={`${id}@name`}
+          placeholder="John Doe"
+        />
+        <InputField
+          label="Whatsapp number"
+          srLabel
           icon={<WhatsappLogo weight="bold" />}
           type="tel"
+          name={`${id}@number`}
+          placeholder="(31)91234-5678"
         />
-        {isCreator ? (
-          <button
-            className="rounded-full p-1 text-slate-600 hover:text-violet-500"
-            title="Add new participant"
-            onClick={add}
-          >
-            <Plus weight="bold" />
-            <span className="sr-only">Add new participant</span>
-          </button>
-        ) : isLast ? (
-          <button
-            className="rounded-full p-1 text-slate-600 hover:text-violet-500"
-            title="Add new participant"
-            onClick={add}
-          >
-            <Plus weight="bold" />
-            <span className="sr-only">Add new participant</span>
-          </button>
-        ) : (
-          <button
-            className="rounded-full p-1 text-slate-600 hover:text-violet-500"
-            title="Add new participant"
-            onClick={add}
-          >
-            <X weight="bold" />
-            <span className="sr-only">Remove participant</span>
-          </button>
-        )}
       </div>
-    </div>
+      {isLast ? (
+        <Button
+          label="Add participant"
+          srLabel
+          icon={<Plus weight="bold" />}
+          variant="icon"
+          onClick={add}
+          type="button"
+        />
+      ) : (
+        <Button
+          label="Add participant"
+          srLabel
+          icon={<X weight="bold" />}
+          variant="icon"
+          onClick={handleRemove}
+          type="button"
+        />
+      )}
+    </li>
   )
 }

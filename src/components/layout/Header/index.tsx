@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { Logo } from '../Logo'
 
 export const Header = () => {
-  const [isScrolling, setIsSrolling] = useState(false)
+  const [isScrolling, setIsScrolling] = useState(false)
 
   useEffect(() => {
-    window.onscroll = () => setIsSrolling(window.pageYOffset > 0)
+    window.onscroll = () => setIsScrolling(window.pageYOffset > 0)
   }, [])
 
   return (
@@ -25,9 +25,9 @@ export const Header = () => {
             <li>
               <a href="#home">Home</a>
             </li>
-            <li>
+            {/* <li>
               <a href="#about">About</a>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>
