@@ -1,24 +1,25 @@
 import { Plus, User, WhatsappLogo, X } from 'phosphor-react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { FieldErrors } from '../../../../@types/form'
 import { Button } from '../../../../components/Button'
 import { InputField } from '../../../../components/InputField'
 
 interface ParticipantFieldProps {
-  add: () => void
-  remove: (id: string) => void
   id: string
   isLast: boolean
+  errors: FieldErrors
+  add: () => void
+  remove: (id: string) => void
   register: UseFormRegister<FieldValues>
-  errors: any
 }
 
 export const ParticipantField = ({
-  add,
-  remove,
   id,
   isLast,
-  register,
   errors,
+  add,
+  remove,
+  register,
 }: ParticipantFieldProps) => {
   const handleRemove = () => {
     remove(id)

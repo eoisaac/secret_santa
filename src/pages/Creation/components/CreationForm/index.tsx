@@ -2,11 +2,12 @@ import { Calendar, CurrencyDollar } from 'phosphor-react'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
+import { FieldErrors } from '../../../../@types/form'
 import { InputField } from '../../../../components/InputField'
 import { ParticipantField } from '../ParticipantField'
 
 interface CreationFormProps {
-  errors: any
+  errors: FieldErrors
 }
 
 export const CreationForm = ({ errors }: CreationFormProps) => {
