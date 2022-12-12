@@ -1,3 +1,7 @@
+import { EnvelopeSimple } from 'phosphor-react'
+import { Button } from '../../components/Button'
+import { CreationForm } from './components/CreationForm'
+
 export const Creation = () => {
   return (
     <section
@@ -12,7 +16,14 @@ export const Creation = () => {
       </h1>
 
       <div>
-        <form action=""></form>
+        <form>
+          <CreationForm />
+          <Button
+            label="Create"
+            icon={<EnvelopeSimple weight="bold" />}
+            type="submit"
+          />
+        </form>
       </div>
     </section>
   )

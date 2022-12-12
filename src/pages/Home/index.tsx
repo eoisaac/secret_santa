@@ -28,7 +28,8 @@ export const Home = () => {
         <a href="#creation">
           <Button
             label="Get started"
-            icon={<CaretRight weight="bold" size={20} />}
+            icon={<CaretRight weight="bold" />}
+            type="button"
           />
         </a>
       </div>
