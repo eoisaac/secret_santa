@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from 'react'
-import { UseFormRegisterReturn } from 'react-hook-form'
+// import { UseFormRegisterReturn } from 'react-hook-form'
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: string
@@ -7,7 +7,9 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   srLabel?: boolean
   icon?: JSX.Element
   errorMessage?: string
-  register?: UseFormRegisterReturn<string>
+  register?: any
+  // func: register: UseFormRegister<FieldValues>
+  // register?: UseFormRegisterReturn<string>
 }
 
 export const InputField = ({
@@ -23,7 +25,7 @@ export const InputField = ({
   const hasIcon = Boolean(icon)
 
   return (
-    <label className="group relative my-1">
+    <label className="group relative my-1 w-full">
       <span
         className={`${
           srLabel
@@ -46,10 +48,11 @@ export const InputField = ({
           </div>
         )}
         <input
-          type={type}
           {...register}
           {...rest}
-          className="bg-transparent focus:shadow-none"
+          type={type}
+          className="w-full bg-transparent placeholder:text-slate-400 
+          focus:shadow-none"
         />
       </div>
       {hasError && (

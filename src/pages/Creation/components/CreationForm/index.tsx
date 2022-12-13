@@ -1,7 +1,5 @@
-import { Calendar, CurrencyDollar } from 'phosphor-react'
-import { useState } from 'react'
-import { useFormContext } from 'react-hook-form'
-import { v4 as uuidv4 } from 'uuid'
+import { Calendar, CurrencyDollar, PencilSimple } from 'phosphor-react'
+import { useFieldArray, useFormContext } from 'react-hook-form'
 import { FieldErrors } from '../../../../@types/form'
 import { InputField } from '../../../../components/InputField'
 import { ParticipantField } from '../ParticipantField'
@@ -11,28 +9,17 @@ interface CreationFormProps {
 }
 
 export const CreationForm = ({ errors }: CreationFormProps) => {
-  const creator = uuidv4()
-  const [participants, setParticipants] = useState<string[]>([creator])
-  const totalParticipants = participants.length
-
-  const { register } = useFormContext()
-
-  const handleAddParticipant = () => {
-    const id = uuidv4()
-    setParticipants((prevState) => [...prevState, id])
-  }
-
-  const handleRemoveParticipant = (participantToDelete: string) => {
-    const restParticipants = participants.filter(
-      (comment) => comment !== participantToDelete,
-    )
-    setParticipants(restParticipants)
-  }
+  const { register, control } = useFormContext()
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'participants',
+  })
+  const totalParticipants = fields.length
 
   return (
     <>
       <fieldset
-        className="flex max-h-96 w-full flex-col items-center gap-2
+        className="flex max-h-80 w-full flex-col items-center gap-2
       overflow-y-auto px-1 py-4"
       >
         <legend>
@@ -40,48 +27,61 @@ export const CreationForm = ({ errors }: CreationFormProps) => {
           Participants
         </legend>
         <ul className="flex w-full flex-col gap-3">
-          {participants.map((participant, index) => {
+          {fields.map(({ id }, index) => {
             const isLast = index === totalParticipants - 1
 
             return (
               <ParticipantField
-                key={participant}
-                add={handleAddParticipant}
-                remove={handleRemoveParticipant}
+                key={id}
+                id={id}
+                index={index}
                 isLast={isLast}
-                id={participant}
-                register={register}
                 errors={errors}
+                add={append}
+                remove={remove}
+                register={register}
               />
             )
           })}
         </ul>
       </fieldset>
       <fieldset
-        className="flex w-full flex-wrap items-center justify-start
+        className="flex w-full flex-col items-center justify-start
       gap-2"
       >
         <legend>Infos</legend>
         <InputField
-          label="Budget"
-          icon={<CurrencyDollar weight="bold" />}
-          type="number"
-          register={register('budget', { required: true })}
-          errorMessage={errors.budget && errors.budget.message}
+          label="Name"
+          icon={<PencilSimple weight="bold" />}
+          register={register('name', { required: true })}
+          errorMessage={errors.name && errors.name.message}
         />
-        <InputField
-          label="Date"
-          icon={<Calendar weight="bold" />}
-          type="date"
-          register={register('date', { required: true })}
-          errorMessage={errors.date && errors.date.message}
-        />
+
+        <div
+          className="flex w-full flex-col items-center justify-start
+      gap-2 sm:flex-row"
+        >
+          <InputField
+            label="Budget"
+            icon={<CurrencyDollar weight="bold" />}
+            type="number"
+            register={register('budget', { required: true })}
+            errorMessage={errors.budget && errors.budget.message}
+          />
+          <InputField
+            label="Date"
+            icon={<Calendar weight="bold" />}
+            type="date"
+            register={register('date', { required: true })}
+            errorMessage={errors.date && errors.date.message}
+          />
+        </div>
       </fieldset>
       <label className="w-full">
         <span>Message</span>
         <textarea
-          className="h-48 w-full resize-none rounded-md bg-slate-50 px-2
-        py-1 shadow-sm"
+          className="mt-2 h-48 w-full resize-none rounded-md bg-slate-50
+        px-2 py-1 shadow-sm"
           placeholder="Message"
           {...register('message', { required: false })}
         />

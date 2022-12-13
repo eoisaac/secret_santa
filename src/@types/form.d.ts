@@ -1,5 +1,7 @@
 import {
   DeepMap,
+  FieldArray,
+  FieldArrayPath,
   FieldValues,
   Message,
   MultipleFieldErrors,
@@ -15,3 +17,9 @@ export interface FieldError {
 
 export type FieldErrors<TFieldValues extends FieldValues = FieldValues> =
   DeepMap<TFieldValues, FieldError>
+
+export type FieldArrayWithId<
+  TFieldValues extends FieldValues = FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+  TKeyName extends string = 'id',
+> = FieldArray<TFieldValues, TFieldArrayName> & Record<TKeyName, string>

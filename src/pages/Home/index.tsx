@@ -4,8 +4,8 @@ import { Button } from '../../components/Button'
 export const Home = () => {
   return (
     <section
-      className="page flex flex-col items-center
-      justify-around text-center"
+      className="page flex flex-col items-center justify-evenly
+    text-center"
     >
       <div
         className="flex max-w-3xl flex-col items-center gap-4 text-slate-500
