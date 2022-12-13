@@ -16,7 +16,7 @@ export const Header = () => {
     >
       <div
         className="mx-auto flex w-full max-w-5xl items-center justify-between
-      p-4"
+      p-2 sm:p-4"
       >
         <Logo />
 

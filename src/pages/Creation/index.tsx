@@ -25,7 +25,11 @@ export const Creation = () => {
   const creationForm = useForm<CreationFormData>({
     resolver: zodResolver(creationFormSchema),
     defaultValues: {
-      participants: [{ name: '', number: '' }],
+      participants: [
+        { name: '', number: '' },
+        { name: '', number: '' },
+        { name: '', number: '' },
+      ],
     },
   })
 
@@ -60,10 +64,13 @@ export const Creation = () => {
         </p>
       </div>
 
-      <div className="flex flex-col items-center sm:flex-row">
+      <div
+        className="flex flex-col flex-wrap items-stretch sm:flex-row
+      sm:items-center"
+      >
         <form
           onSubmit={handleSubmit(handleCreation)}
-          className="mx-auto flex max-w-lg flex-col items-center gap-4"
+          className="flex max-w-2xl flex-col items-center gap-4"
         >
           <FormProvider {...creationForm}>
             <CreationForm errors={errors} />
@@ -79,7 +86,7 @@ export const Creation = () => {
           src="/assets/images/letter.svg"
           alt="3d letter"
           loading="lazy"
-          className="relative  mx-auto h-64 w-64 drop-shadow-md sm:h-72 sm:w-72 
+          className="mx-auto h-64 w-64 p-4 drop-shadow-md sm:h-72 sm:w-72 
           md:h-96 md:w-96"
         />
       </div>

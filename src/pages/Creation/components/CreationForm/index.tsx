@@ -66,6 +66,7 @@ export const CreationForm = ({ errors }: CreationFormProps) => {
             icon={<CurrencyDollar weight="bold" />}
             type="number"
             register={register('budget', { required: true })}
+            placeholder="15,00"
             errorMessage={errors.budget && errors.budget.message}
           />
           <InputField
