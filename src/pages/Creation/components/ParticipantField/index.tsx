@@ -37,8 +37,8 @@ export const ParticipantField = ({
   }
 
   return (
-    <li className="flex items-center justify-center gap-2" key={id}>
-      <div className="flex flex-col items-center gap-2 sm:flex-row">
+    <li className="flex w-full items-center gap-2" key={id}>
+      <div className="flex w-full flex-col items-center gap-2 sm:flex-row">
         <InputField
           label="Name"
           srLabel

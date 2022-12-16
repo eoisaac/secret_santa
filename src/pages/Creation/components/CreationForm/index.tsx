@@ -2,6 +2,7 @@ import { Calendar, CurrencyDollar, PencilSimple } from 'phosphor-react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { FieldErrors } from '../../../../@types/form'
 import { InputField } from '../../../../components/InputField'
+import { TextField } from '../../../../components/TextField'
 import { ParticipantField } from '../ParticipantField'
 
 interface CreationFormProps {
@@ -19,7 +20,7 @@ export const CreationForm = ({ errors }: CreationFormProps) => {
   return (
     <>
       <fieldset
-        className="flex max-h-80 w-full flex-col items-center gap-2
+        className="flex max-h-96 w-full flex-col items-center gap-2
       overflow-y-auto px-1 py-4"
       >
         <legend>
@@ -77,17 +78,13 @@ export const CreationForm = ({ errors }: CreationFormProps) => {
             errorMessage={errors.date && errors.date.message}
           />
         </div>
-      </fieldset>
-      <label className="w-full">
-        <span>Message</span>
-        <textarea
-          className="mt-2 h-48 w-full resize-none rounded-md bg-slate-50
-        px-2 py-1 shadow-sm"
+        <TextField
+          label="Message"
           placeholder="Message"
-          {...register('message', { required: false })}
+          register={register('message', { required: false })}
+          errorMessage={errors.message && errors.message.message}
         />
-        <span>{errors.message && errors.message.message}</span>
-      </label>
+      </fieldset>
     </>
   )
 }

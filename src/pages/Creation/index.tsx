@@ -65,12 +65,12 @@ export const Creation = () => {
       </div>
 
       <div
-        className="flex flex-col flex-wrap items-stretch sm:flex-row
-      sm:items-center"
+        className="flex flex-col items-stretch gap-8
+      sm:flex-row sm:items-center"
       >
         <form
           onSubmit={handleSubmit(handleCreation)}
-          className="flex max-w-2xl flex-col items-center gap-4"
+          className="mx-auto flex w-full flex-col items-center gap-4"
         >
           <FormProvider {...creationForm}>
             <CreationForm errors={errors} />
