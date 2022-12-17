@@ -4,13 +4,26 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
 import * as zod from 'zod'
 import { Button } from '../../components/Button'
+import { createMessagesRequest } from '../../utils/createMessagesRequest'
 import { CreationForm } from './components/CreationForm'
 
 export const Creation = () => {
+  const MIN_DATE = new Date()
+  const MIN_PARTICIPANTS_AMOUNT = 3
+
   const creationFormSchema = zod.object({
-    name: zod.string().min(1, 'You must add the name'),
-    budget: zod.string().min(1, 'You must add the budget'),
-    date: zod.string().min(1, 'You must add the date'),
+    name: zod.string().min(1, 'You should add the name'),
+    budget: zod
+      .number({
+        invalid_type_error: 'You should add the budget',
+      })
+      .min(1, 'Minimum budget should be 1'),
+    date: zod
+      .date({
+        required_error: 'You should add the date',
+        invalid_type_error: 'You should add the date',
+      })
+      .min(MIN_DATE, 'Minimum date must be tomorrow'),
     participants: zod
       .object({
         id: zod.string(),
@@ -19,20 +32,26 @@ export const Creation = () => {
         pair: zod.string(),
       })
       .array()
-      .min(3, 'You must add at least 3 participants'),
+      .min(
+        MIN_PARTICIPANTS_AMOUNT,
+        `You must add at least ${MIN_PARTICIPANTS_AMOUNT} participants`,
+      ),
     message: zod.string(),
   })
-  const MIN_PARTICIPANTS_AMOUNT = 3
 
   type CreationFormData = zod.infer<typeof creationFormSchema>
 
   const creationForm = useForm<CreationFormData>({
     resolver: zodResolver(creationFormSchema),
     defaultValues: {
-      participants: [...new Array(MIN_PARTICIPANTS_AMOUNT)].map(() => ({
+      participants: [...new Array(MIN_PARTICIPANTS_AMOUNT)].map((p, i) => ({
+        // id: uuidv4(),
+        // name: '',
+        // number: '',
+        // pair: '',
         id: uuidv4(),
-        name: '',
-        number: '',
+        name: `John Doe ${i}`,
+        number: `+55001234-567${i}`,
         pair: '',
       })),
     },
@@ -42,8 +61,9 @@ export const Creation = () => {
   const { errors } = formState
 
   const handleCreation = (data: CreationFormData) => {
-    // const secretSanta: SecretSanta = {}
-    console.log(data)
+    const requests = createMessagesRequest(data)
+
+    console.log(requests)
     reset()
   }
 
@@ -62,10 +82,16 @@ export const Creation = () => {
         >
           Creation
         </h1>
-        <p>
-          Fill out the form below adding the name and whatsapp number of the
-          participants
-        </p>
+        <div>
+          <p>
+            Fill out the form below adding the name and whatsapp number of the
+            participants.
+          </p>
+          <p>
+            Don&apos;t forget to add your name and number in the participants
+            list!
+          </p>
+        </div>
       </div>
 
       <div

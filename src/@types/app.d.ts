@@ -12,3 +12,8 @@ export interface SecretSanta {
   message?: string
   participants: Participant[]
 }
+
+export interface MessageRequest {
+  receiver: string
+  message: string
+}

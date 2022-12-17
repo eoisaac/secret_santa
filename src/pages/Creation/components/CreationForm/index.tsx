@@ -69,7 +69,10 @@ export const CreationForm = ({ errors }: CreationFormProps) => {
             label="Budget"
             icon={<CurrencyDollar weight="bold" />}
             type="number"
-            register={register('budget', { required: true })}
+            register={register('budget', {
+              required: true,
+              valueAsNumber: true,
+            })}
             placeholder="15,00"
             errorMessage={errors.budget && errors.budget.message}
           />
@@ -77,7 +80,7 @@ export const CreationForm = ({ errors }: CreationFormProps) => {
             label="Date"
             icon={<Calendar weight="bold" />}
             type="date"
-            register={register('date', { required: true })}
+            register={register('date', { required: true, valueAsDate: true })}
             errorMessage={errors.date && errors.date.message}
           />
         </div>
