@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
 import * as zod from 'zod'
 import { Button } from '../../components/Button'
+import { sendMessages } from '../../services/axios/requests'
 import { createMessagesRequest } from '../../utils/createMessagesRequest'
 import { CreationForm } from './components/CreationForm'
 
@@ -51,7 +52,7 @@ export const Creation = () => {
         // pair: '',
         id: uuidv4(),
         name: `John Doe ${i}`,
-        number: `+55001234-567${i}`,
+        number: `+5531971546159`,
         pair: '',
       })),
     },
@@ -62,8 +63,9 @@ export const Creation = () => {
 
   const handleCreation = (data: CreationFormData) => {
     const requests = createMessagesRequest(data)
+    const responses = requests.map((req) => sendMessages(req))
 
-    console.log(requests)
+    console.log(responses)
     reset()
   }
 
