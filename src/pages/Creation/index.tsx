@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { EnvelopeSimple } from 'phosphor-react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid'
 import * as zod from 'zod'
 import { Button } from '../../components/Button'
 import { CreationForm } from './components/CreationForm'
@@ -12,24 +13,28 @@ export const Creation = () => {
     date: zod.string().min(1, 'You must add the date'),
     participants: zod
       .object({
+        id: zod.string(),
         name: zod.string().min(1, 'You must add the name'),
         number: zod.string().min(1, 'You must add the number'),
+        pair: zod.string(),
       })
       .array()
-      .min(3, 'You must add participants'),
+      .min(3, 'You must add at least 3 participants'),
     message: zod.string(),
   })
+  const MIN_PARTICIPANTS_AMOUNT = 3
 
   type CreationFormData = zod.infer<typeof creationFormSchema>
 
   const creationForm = useForm<CreationFormData>({
     resolver: zodResolver(creationFormSchema),
     defaultValues: {
-      participants: [
-        { name: '', number: '' },
-        { name: '', number: '' },
-        { name: '', number: '' },
-      ],
+      participants: [...new Array(MIN_PARTICIPANTS_AMOUNT)].map(() => ({
+        id: uuidv4(),
+        name: '',
+        number: '',
+        pair: '',
+      })),
     },
   })
 
@@ -58,9 +63,8 @@ export const Creation = () => {
           Creation
         </h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
-          aperiam expedita laboriosam repellendus qui. Adipisci perferendis
-          dolores.
+          Fill out the form below adding the name and whatsapp number of the
+          participants
         </p>
       </div>
 

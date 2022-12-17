@@ -5,6 +5,7 @@ import {
   UseFieldArrayRemove,
   UseFormRegister,
 } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid'
 import { FieldErrors } from '../../../../@types/form'
 import { Button } from '../../../../components/Button'
 import { InputField } from '../../../../components/InputField'
@@ -29,7 +30,7 @@ export const ParticipantField = ({
   register,
 }: ParticipantFieldProps) => {
   const handleAddParticipant = () => {
-    add({ name: '', number: '' })
+    add({ id: uuidv4(), name: '', number: '', pair: '' })
   }
 
   const handleRemoveParticipant = () => {

@@ -45,6 +45,9 @@ export const CreationForm = ({ errors }: CreationFormProps) => {
             )
           })}
         </ul>
+        <div className="w-full  pt-2 text-start text-sm text-rose-500">
+          {errors.participants && errors.participants.message}
+        </div>
       </fieldset>
       <fieldset
         className="flex w-full flex-col items-center justify-start

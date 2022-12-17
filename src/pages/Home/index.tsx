@@ -19,10 +19,10 @@ export const Home = () => {
           co-workers?
         </h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
-          aperiam expedita laboriosam repellendus qui. Adipisci perferendis
-          dolores, nostrum placeat iure fugit quos natus laboriosam ratione
-          autem dignissimos accusamus ipsum magnam!
+          Create and manage Secret Santa gift exchanges. With a few simple
+          steps, you can create a group, invite participants and randomly draw
+          names and send the assigned name for each participant via WhatsApp for
+          an exciting and fun gift exchange!
         </p>
 
         <a href="#creation">

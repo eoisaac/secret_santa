@@ -1,10 +1,8 @@
-export interface BaseParticipant {
+export interface Participant {
+  id: string
   name: string
   number: string
-}
-
-export interface Participant extends BaseParticipant {
-  pair: Participant
+  pair: string
 }
 
 export interface SecretSanta {
