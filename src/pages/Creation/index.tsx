@@ -46,13 +46,9 @@ export const Creation = () => {
     resolver: zodResolver(creationFormSchema),
     defaultValues: {
       participants: [...new Array(MIN_PARTICIPANTS_AMOUNT)].map((p, i) => ({
-        // id: uuidv4(),
-        // name: '',
-        // number: '',
-        // pair: '',
         id: uuidv4(),
-        name: `John Doe ${i}`,
-        number: `+5531971546159`,
+        name: '',
+        number: '',
         pair: '',
       })),
     },
@@ -63,7 +59,7 @@ export const Creation = () => {
 
   const handleCreation = (data: CreationFormData) => {
     const requests = createMessagesRequest(data)
-    const responses = requests.map((req) => sendMessages(req))
+    const responses = sendMessages(requests)
 
     console.log(responses)
     reset()

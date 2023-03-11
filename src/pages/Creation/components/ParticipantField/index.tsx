@@ -60,7 +60,7 @@ export const ParticipantField = ({
           srLabel
           icon={<WhatsappLogo weight="bold" />}
           type="tel"
-          placeholder="(31)91234-5678"
+          placeholder="(00)01234-5678"
           register={register(`participants[${index}].number`, {
             required: true,
           })}
