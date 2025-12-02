@@ -25,11 +25,6 @@ APPS_ROOT_DIR="apps"
 PACKAGES_ROOT_DIR="packages"
 
 
-# tracker-mock
-TRACKER_MOCK_DIR="apps/tracker-mock"
-TRACKER_MOCK_REQUIREMENTS_FILE="$TRACKER_MOCK_DIR/requirements.txt"
-VENV_DIR="$TRACKER_MOCK_DIR/.venv"
-
 
 _compare_version() {
   test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1";
@@ -96,51 +91,6 @@ check_pnpm() {
   cmd_divider
 }
 
-check_python() {
-  echo "${COLOR_WHITE}\n🐍 Checking Python...${COLOR_RESET}"
-  PYTHON_INSTALLED=$(python3 --version)
-  if [ $? -ne 0 ]; then
-    echo "${COLOR_RED}❌ Python is not installed.${COLOR_RESET}"
-    echo "${COLOR_GRAY}👉 Please install Python. ${COLOR_RESET}"
-    echo "${COLOR_YELLOW}🔗 https://www.python.org/downloads/ ${COLOR_RESET}\n"
-    exit 1
-  else
-    echo "${COLOR_GREEN}✅ Python is installed. ${COLOR_RESET}"
-    echo "${COLOR_GRAY}👉 Current version: ${PYTHON_INSTALLED} ${COLOR_RESET}"
-  fi
-
-  cmd_divider
-}
-
-check_pip() {
-  echo "${COLOR_WHITE}\n📦 Checking pip...${COLOR_RESET}"
-  PIP_INSTALLED=$(pip3 --version)
-  if [ $? -ne 0 ]; then
-    echo "${COLOR_RED}❌ pip is not installed.${COLOR_RESET}"
-    echo "${COLOR_GRAY}👉 Please install pip. ${COLOR_RESET}"
-    echo "${COLOR_YELLOW}🔗 https://pip.pypa.io/en/stable/installation/ ${COLOR_RESET}\n"
-    exit 1
-  else
-    echo "${COLOR_GREEN}✅ pip is installed. ${COLOR_RESET}"
-    echo "${COLOR_GRAY}👉 Current version: ${PIP_INSTALLED} ${COLOR_RESET}"
-  fi
-
-  cmd_divider
-}
-
-setup_venv() {
-  echo "${COLOR_WHITE}\n📦 Setting up virtual environment...${COLOR_RESET}"
-  if [ ! -d "$VENV_DIR" ]; then
-    python3 -m venv "$VENV_DIR"
-    echo "${COLOR_GREEN}✅ Virtual environment created at ${VENV_DIR}. ${COLOR_RESET}"
-  else
-    echo "${COLOR_YELLOW}⚠️ Virtual environment already exists at ${VENV_DIR}. ${COLOR_RESET}"
-  fi
-
-  cmd_divider
-}
-
-
 install_js_dependencies() {
   # echo "${COLOR_WHITE}\n📦 Installing project dependencies...${COLOR_RESET}"
   pnpm install
@@ -154,23 +104,6 @@ install_js_dependencies() {
   cmd_divider
 }
 
-install_py_dependencies() {
-   source "$VENV_DIR/bin/activate"
-  if [ -f "$TRACKER_MOCK_REQUIREMENTS_FILE" ]; then
-    pip install -r "$TRACKER_MOCK_REQUIREMENTS_FILE"
-    if [ $? -ne 0 ]; then
-      echo -e "${COLOR_RED}❌ Failed to install dependencies for tracker-mock. ${COLOR_RESET}\n"
-      exit 1
-    else
-      echo -e "${COLOR_GREEN}✅ Dependencies for tracker-mock installed using pip. ${COLOR_RESET}"
-    fi
-  else
-    echo -e "${COLOR_RED}❌ requirements.txt not found in $TRACKER_MOCK_DIR. ${COLOR_RESET}"
-    exit 1
-  fi
-
-  cmd_divider
-}
 
 setup_husky() {
   echo "${COLOR_WHITE}\n🐺 Setting up husky...${COLOR_RESET}"
@@ -267,11 +200,6 @@ _setup() {
   check_node_version
   check_pnpm
   install_js_dependencies
-
-  check_python
-  check_pip
-  setup_venv
-  install_py_dependencies
 
   setup_husky
   setup_environment_variables
