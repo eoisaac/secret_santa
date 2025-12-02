@@ -1,7 +1,10 @@
 {
   "eslint.workingDirectories": [{ "mode": "auto" }],
   "material-icon-theme.activeIconPack": "nest",
-  "material-icon-theme.files.associations": {},
+  "material-icon-theme.files.associations": {
+    "*.router.ts": "nest-middleware",
+    "*.schema.ts": "nest-resolver",
+  },
   "material-icon-theme.folders.associations": {
     "linting": "custom"
   },
