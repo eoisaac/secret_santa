@@ -4,8 +4,10 @@
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "nestjs-trpc": "^1.6.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "zod": "^4.1.13"
   },
   "description": "",
   "devDependencies": {
@@ -39,5 +41,5 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main"
   },
-  "version": "0.0.1"
+  "version": "1.0.0"
 }

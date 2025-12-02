@@ -30,6 +30,7 @@
     "@linting": "pnpm --filter linting",
     "@web": "pnpm --filter web",
     "@server": "pnpm --filter server",
+    "@trpc": "pnpm --filter trpc",
     "======= Cleaning =======": "=============================================",
     "clean": "turbo run clean; rm -rf ./node_modules; rm -f pnpm-lock.yaml",
     "clean:build": "turbo run clean:build",
