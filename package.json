@@ -1,44 +1,52 @@
 {
-  "name": "secret_santa",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "test": "vitest",
-    "test:info": "vitest --silent=false",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint src --ext .ts,.tsx && prettier --check './src/**/*.{ts,tsx,css}'",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix && prettier --write './src/**/*.{ts,tsx,css}'"
+  "name": "urbus",
+  "repository": {
+    "url": "https://github.com/eoisaac/urbus",
+    "type": "git"
   },
-  "dependencies": {
-    "@hookform/resolvers": "^2.9.10",
-    "axios": "^1.2.1",
-    "phosphor-react": "^1.4.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.40.0",
-    "uuid": "^9.0.0",
-    "zod": "^3.20.0"
+  "author": {
+    "name": "Isaac Santiago",
+    "url": "https://eoisaac.vercel.app/"
+  },
+  "license": "MIT",
+  "readme": "README.md",
+  "version": "1.0.0",
+  "description": "UrBus, a mobile bus tracking app",
+  "private": true,
+  "scripts": {
+    "======= Linting =======": "==============================================",
+    "lint:fix": "turbo run lint:fix",
+    "lint:check": "turbo run lint:check",
+    "======= Testing =======": "==============================================",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "test:e2e": "turbo run test:e2e",
+    "======= Build =======": "================================================",
+    "build": "turbo run build",
+    "======= Utility =======": "==============================================",
+    "pre-commit": "lint-staged",
+    "prepare": "husky",
+    "======= Repo =======": "=================================================",
+    "@linting": "pnpm --filter linting",
+    "@web": "pnpm --filter web",
+    "@server": "pnpm --filter server",
+    "======= Cleaning =======": "=============================================",
+    "clean": "turbo run clean; rm -rf ./node_modules; rm -f pnpm-lock.yaml",
+    "clean:build": "turbo run clean:build",
+    "clean:install": "pnpm clean; pnpm install",
+    "======= Dev =======": "==================================================",
+    "dev": "turbo run dev"
   },
   "devDependencies": {
-    "@rocketseat/eslint-config": "^1.1.3",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@types/react": "^18.0.24",
-    "@types/react-dom": "^18.0.8",
-    "@types/uuid": "^9.0.0",
-    "@vitejs/plugin-react": "^2.2.0",
-    "autoprefixer": "^10.4.13",
-    "eslint": "^8.29.0",
-    "jsdom": "^20.0.3",
-    "postcss": "^8.4.19",
-    "prettier": "^2.8.0",
-    "prettier-plugin-tailwindcss": "^0.2.0",
-    "tailwindcss": "^3.2.4",
-    "typescript": "^4.6.4",
-    "vite": "^3.2.3",
-    "vitest": "^0.25.7"
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "turbo": "^2.5.4",
+    "typescript": "5.8.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
   }
 }
