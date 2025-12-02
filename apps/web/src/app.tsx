@@ -1,3 +1,5 @@
+import '@/styles/globals.css'
+
 import { trpc } from '@repo/trpc/client'
 import React from 'react'
 

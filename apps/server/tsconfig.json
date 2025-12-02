@@ -19,7 +19,7 @@
       "@/*": ["src/*"],
       "@test/*": ["test/*"]
     },
-    
+
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
