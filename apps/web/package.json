@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "@repo/trpc": "workspace:*",
+    "@tanstack/react-query": "^5.90.11",
+    "@trpc/react-query": "^11.7.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

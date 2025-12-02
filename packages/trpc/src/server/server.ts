@@ -7,7 +7,8 @@ const publicProcedure = t.procedure;
 const appRouter = t.router({
   secretSanta: t.router({
     createSecretSanta: publicProcedure.input(z.object({
-      id: z.uuidv4(),
+      // id: z.uuidv4(),
+      id: z.string(),
 
       eventName: z.string().min(1, 'Event name is required'),
 
@@ -26,7 +27,8 @@ const appRouter = t.router({
         )
         .min(2, 'At least two participants are required'),
     }).omit({ id: true })).output(z.object({
-      id: z.uuidv4(),
+      // id: z.uuidv4(),
+      id: z.string(),
 
       eventName: z.string().min(1, 'Event name is required'),
 

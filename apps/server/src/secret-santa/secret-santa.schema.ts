@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
 export const secretSantaSchema = z.object({
-  id: z.uuidv4(),
+  // id: z.uuidv4(),
+  id: z.string(),
 
   eventName: z.string().min(1, 'Event name is required'),
 
