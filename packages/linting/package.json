@@ -16,9 +16,7 @@
   },
   "files": [
     "eslint-base.js",
-    "nest.js",
     "eslint-react.js",
-    "eslint-react-native.js",
     "prettier-base.js"
   ],
   "name": "@repo/linting",
