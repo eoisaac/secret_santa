@@ -6,6 +6,8 @@ import React from 'react'
 export const HomePage = () => {
   const formSectionRef = React.useRef<HTMLDivElement>(null)
 
+  const currentYear = new Date().getFullYear()
+
   const handleScrollToForm = () =>
     formSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
 
@@ -60,18 +62,33 @@ export const HomePage = () => {
           participants list!
         </p>
 
-        <div className="flex flex-wrap items-center gap-4">
-          <SecretSantaForm />
-
-          <img
-            src="images/letter.svg"
-            alt="3d letter"
-            loading="lazy"
-            className="mx-auto h-64 w-64 p-4 drop-shadow-md sm:h-72 sm:w-72 
-          md:h-96 md:w-96"
-          />
-        </div>
+        <SecretSantaForm />
       </section>
+
+      <div className="bg-secondary">
+        <footer className="mx-auto flex max-w-4xl items-center justify-between p-4">
+          <div className="flex w-full flex-wrap items-center justify-between text-sm">
+            <div className="text-secondary-foreground mx-auto">
+              <span>&copy;{currentYear} </span>
+              <span className="text-primary font-medium">SecretSanta. </span>
+              <span>Todos os direitos reservados.</span>
+            </div>
+
+            <div className="text-secondary-foreground mx-auto">
+              <span>Feito com ❤️ por </span>
+
+              <a
+                href="https://github.com/eoisaac"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-medium hover:underline"
+              >
+                @eoisaac
+              </a>
+            </div>
+          </div>
+        </footer>
+      </div>
     </>
   )
 }
