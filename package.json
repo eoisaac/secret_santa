@@ -28,6 +28,7 @@
     "prepare": "husky",
     "======= Repo =======": "=================================================",
     "@linting": "pnpm --filter linting",
+    "@utility": "pnpm --filter utility",
     "@web": "pnpm --filter web",
     "@server": "pnpm --filter server",
     "@trpc": "pnpm --filter trpc",

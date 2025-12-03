@@ -1,0 +1,23 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "@repo/linting": "workspace:*",
+    "@types/node": "^24.7.2",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "name": "@repo/utility",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf ./node_modules; rm -f pnpm-lock.yaml; rm -rf ./dist",
+    "clean:build": "rm -rf ./dist",
+    "dev": "tsc --watch",
+    "lint:check": "eslint --ext .js,.ts && prettier --check \"src/**/*.{js,ts}\"",
+    "lint:fix": "eslint --ext .js,.ts --fix && prettier --write \"src/**/*.{js,ts}\""
+  },
+  "version": "1.0.0"
+}

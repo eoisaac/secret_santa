@@ -1,4 +1,3 @@
-// @todo: create utility package and move this there
 export const formatCurrency = (
   value: number = 0,
   locale: string,
