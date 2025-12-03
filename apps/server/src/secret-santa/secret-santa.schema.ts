@@ -14,7 +14,7 @@ export const secretSantaSchema = z.object({
     .array(
       z.object({
         name: z.string().min(1, 'Name is required'),
-        phone: z.string().min(1, 'Phone number is required'),
+        phone: z.string().min(1, 'Phone is required'),
       }),
     )
     .min(2, 'Add at least two participants.'),

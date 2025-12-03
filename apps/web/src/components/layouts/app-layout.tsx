@@ -19,7 +19,7 @@ export const AppLayout = (props: AppLayoutProps) => {
       >
         <div
           className={cn(
-            'bg-background absolute inset-0 -top-8 -z-10 bg-clip-padding blur-2xl backdrop-blur-2xl backdrop-filter transition-all duration-300',
+            'bg-background absolute inset-0 -top-8 -z-10 bg-clip-padding blur-xs backdrop-blur-xs backdrop-filter transition-all duration-300',
             { 'bg-opacity-30': isScrolling, 'bg-opacity-80': !isScrolling },
           )}
         />
