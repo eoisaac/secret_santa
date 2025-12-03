@@ -55,10 +55,10 @@ export const SecretSantaForm = () => {
   })
   const formErrors = form.formState.errors
 
-  console.log('Form Errors:', formErrors)
-
-  const handleFormSubmit = async (values: SecretSantaFormValues) =>
-    await mutateAsync(values)
+  const handleFormSubmit = async (values: SecretSantaFormValues) => {
+    const response = await mutateAsync(values)
+    if (response) form.reset()
+  }
 
   return (
     <Form {...form}>

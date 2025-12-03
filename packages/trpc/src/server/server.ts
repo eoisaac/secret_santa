@@ -13,7 +13,7 @@ const appRouter = t.router({
         .array(z.number().min(0, 'Budget values cannot be negative'))
         .length(2, 'Budget must have min and max values'),
 
-      date: z.date(),
+      date: z.coerce.date(),
 
       message: z.string().optional(),
       participants: z
@@ -31,7 +31,7 @@ const appRouter = t.router({
         .array(z.number().min(0, 'Budget values cannot be negative'))
         .length(2, 'Budget must have min and max values'),
 
-      date: z.date(),
+      date: z.coerce.date(),
 
       message: z.string().optional(),
       participants: z

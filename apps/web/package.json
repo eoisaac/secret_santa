@@ -38,8 +38,7 @@
     "build": "tsc -b && vite build",
     "clean": "rm -rf ./node_modules; rm -f pnpm-lock.yaml; rm -rf ./dist",
     "clean:build": "rm -rf ./dist",
-    "dev": "vite",
-    "dev:host": "vite --host",
+    "dev": "vite --host",
     "lint:check": "eslint && prettier --check './src/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix && prettier --write './src/**/*.{ts,tsx}'",
     "preview": "vite preview"
