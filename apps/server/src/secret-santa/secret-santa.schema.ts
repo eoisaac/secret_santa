@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+// @todo: create a shared file for zod schemas between web and server
 export const secretSantaSchema = z.object({
   eventName: z.string().min(1, 'Event name is required'),
 
