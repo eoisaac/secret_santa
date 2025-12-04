@@ -1,10 +1,10 @@
-import type { CreateSecretSanta } from '@/secret-santa/secret-santa.schema'
+import type { CreateSecretSanta } from '@/@types/schemas/secret-santa.schema'
 import { SecretSantaService } from '@/secret-santa/secret-santa.service'
 import { Input, Mutation, Router } from 'nestjs-trpc'
 import {
   createSecretSantaSchema,
   secretSantaSchema,
-} from './secret-santa.schema'
+} from '../@types/schemas/secret-santa.schema'
 
 @Router({ alias: 'secretSanta' })
 export class SecretSantaRouter {

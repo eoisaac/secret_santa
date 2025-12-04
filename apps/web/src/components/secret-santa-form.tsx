@@ -12,12 +12,13 @@ import {
 import { Input } from '@/components/ui/input'
 import { Slider } from '@/components/ui/slider'
 import { Textarea } from '@/components/ui/textarea'
-import { cn } from '@/utils/cn/utils'
+import { cn } from '@/libs/cn/utils'
+import { formatCurrency } from '@/utils/format'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { trpc } from '@repo/trpc/client'
-import { formatCurrency } from '@repo/utility'
 import { LoaderIcon, PlusIcon, XIcon } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
+import { withMask } from 'use-mask-input'
 import { z } from 'zod'
 
 // @todo: create a shared file for zod schemas between web and server
@@ -32,10 +33,25 @@ const secretSantaFormValues = z.object({
     .array(
       z.object({
         name: z.string().min(1, 'Name is required'),
-        phone: z.string().min(1, 'Phone is required'),
+        phone: z
+          .string()
+          .min(1, 'Phone is required')
+          .transform((val) => val.replace(/\D/g, ''))
+          .refine((val) => val.length === 11, 'Phone is invalid'),
       }),
     )
-    .min(2, 'Add at least two participants'),
+    .min(2, 'Add at least two participants')
+    .refine(
+      (participants) => {
+        const phones = participants.map((p) => p.phone)
+        const unique = new Set(phones)
+        return unique.size === phones.length
+      },
+      {
+        message: 'Participants must have unique phone numbers',
+        path: ['root'],
+      },
+    ),
 })
 export type SecretSantaFormValues = z.infer<typeof secretSantaFormValues>
 
@@ -46,11 +62,14 @@ export const SecretSantaForm = () => {
   const form = useForm<SecretSantaFormValues>({
     resolver: zodResolver(secretSantaFormValues),
     defaultValues: {
-      eventName: '',
+      eventName: 'NATAAAAAAAAAAAAAAL',
       budget: [0, 100],
       date: new Date(),
-      message: '',
-      participants: [{ name: '', phone: '' }],
+      message: 'NATAAAAAAAAAAL',
+      participants: [
+        { name: 'JOHN DOE', phone: '(31) 9 1111-1111' },
+        { name: 'JANE DOE', phone: '(31) 9 2222-2222' },
+      ],
     },
   })
   const formErrors = form.formState.errors
@@ -168,6 +187,7 @@ export const SecretSantaForm = () => {
             control={form.control}
             name="participants"
             render={() => {
+              // eslint-disable-next-line react-hooks/rules-of-hooks
               const { fields, append, remove } = useFieldArray({
                 name: 'participants',
                 control: form.control,
@@ -212,12 +232,14 @@ export const SecretSantaForm = () => {
                           <FormField
                             control={form.control}
                             name={`participants.${index}.phone`}
-                            render={({ field }) => (
+                            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                            render={({ field: { ref, ...field } }) => (
                               <FormItem className="flex-1">
                                 <FormLabel>Phone</FormLabel>
                                 <div className="flex gap-2 items-center">
                                   <FormControl>
                                     <Input
+                                      ref={withMask('(99) 9 9999-9999')}
                                       placeholder="(00) 00000-0000"
                                       {...field}
                                     />
