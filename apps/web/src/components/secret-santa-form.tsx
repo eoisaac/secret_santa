@@ -62,14 +62,11 @@ export const SecretSantaForm = () => {
   const form = useForm<SecretSantaFormValues>({
     resolver: zodResolver(secretSantaFormValues),
     defaultValues: {
-      eventName: 'NATAAAAAAAAAAAAAAL',
+      eventName: '',
       budget: [0, 100],
       date: new Date(),
-      message: 'NATAAAAAAAAAAL',
-      participants: [
-        { name: 'JOHN DOE', phone: '(31) 9 1111-1111' },
-        { name: 'JANE DOE', phone: '(31) 9 2222-2222' },
-      ],
+      message: '',
+      participants: [{ name: '', phone: '' }],
     },
   })
   const formErrors = form.formState.errors
