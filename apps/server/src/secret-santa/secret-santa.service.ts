@@ -4,13 +4,12 @@ import { formatWhatsAppPhone } from '@/utils/format'
 import { matchParticipants } from '@/utils/match-participants'
 import { getParticipantMessage } from '@/utils/message'
 import { Injectable } from '@nestjs/common'
-// import { Client } from 'whatsapp-web.js'
+import { Client } from 'whatsapp-web.js'
 
 @Injectable()
 export class SecretSantaService {
-  // constructor(private readonly client: any) {}
+  constructor(private readonly client: Client) {}
 
-  private client: any = {}
   async createSecretSanta(input: CreateSecretSanta) {
     const matchedParticipants = matchParticipants(input.participants)
 
