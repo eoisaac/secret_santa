@@ -1,72 +1,101 @@
-import type { CreateSecretSanta } from '@/@types/schemas/secret-santa.schema'
+import { Participant } from '@/@types/schemas/participant.schema'
+import { CreateSecretSanta } from '@/@types/schemas/secret-santa.schema'
 import { formatWhatsAppPhone } from '@/utils/format'
 import { matchParticipants } from '@/utils/match-participants'
 import { getParticipantMessage } from '@/utils/message'
 import { Injectable } from '@nestjs/common'
-import { Client } from 'whatsapp-web.js'
+// import { Client } from 'whatsapp-web.js'
 
 @Injectable()
 export class SecretSantaService {
-  constructor(private readonly client: Client) {}
+  // constructor(private readonly client: any) {}
 
+  private client: any = {}
   async createSecretSanta(input: CreateSecretSanta) {
     const matchedParticipants = matchParticipants(input.participants)
 
-    const tasks = matchedParticipants.map((p) =>
-      this.processParticipant(p, input),
-    )
-    const results = await Promise.all(tasks)
+    const validationResults = await this.validateAllNumbers(matchedParticipants)
+    const hasInvalid = validationResults.some((r) => r.status !== 'success')
 
-    return { eventName: input.eventName, results }
+    if (hasInvalid)
+      return {
+        eventName: input.eventName,
+        results: validationResults,
+        sent: false,
+      }
+
+    const sendResults = await Promise.all(
+      matchedParticipants.map((p, i) =>
+        this.sendMessageToValidParticipant(
+          p,
+          input,
+          validationResults[i].phone,
+        ),
+      ),
+    )
+
+    return {
+      eventName: input.eventName,
+      results: sendResults,
+      sent: true,
+    }
   }
 
-  private async processParticipant(participant: any, event: CreateSecretSanta) {
-    try {
-      const formattedPhone = this.validateAndFormatPhone(participant)
-      if (!formattedPhone)
-        return this.buildResult(participant, 'invalid-number')
+  private async validateAllNumbers(participants: Participant[]) {
+    return Promise.all(
+      participants.map(async (participant) => {
+        try {
+          const formattedPhone = formatWhatsAppPhone(participant.phone)
+          if (!formattedPhone)
+            return this.buildResult(participant, 'invalid-number')
 
-      const numberInfo = await this.verifyWhatsAppNumber(formattedPhone)
+          const numberInfo = await this.client.getNumberId(formattedPhone)
+          if (!numberInfo) {
+            return this.buildResult(
+              participant,
+              'invalid-number',
+              formattedPhone,
+            )
+          }
+
+          return this.buildResult(participant, 'success', formattedPhone)
+        } catch (err) {
+          return this.buildResult(
+            participant,
+            'error',
+            participant.phone,
+            err instanceof Error ? err.message : String(err),
+          )
+        }
+      }),
+    )
+  }
+
+  private async sendMessageToValidParticipant(
+    participant: Participant,
+    event: CreateSecretSanta,
+    formattedPhone: string,
+  ) {
+    try {
+      const numberInfo = await this.client.getNumberId(formattedPhone)
       if (!numberInfo)
         return this.buildResult(participant, 'invalid-number', formattedPhone)
 
-      await this.sendMessageToParticipant(
-        participant,
-        event,
-        numberInfo._serialized,
-      )
-
+      const message = getParticipantMessage(participant, event)
+      await this.client.sendMessage(numberInfo._serialized, message)
       return this.buildResult(participant, 'success', formattedPhone)
     } catch (err) {
       return this.buildResult(
         participant,
         'error',
-        participant.phone,
+        formattedPhone,
         err instanceof Error ? err.message : String(err),
       )
     }
   }
 
-  private validateAndFormatPhone(participant: any) {
-    const formatted = formatWhatsAppPhone(participant.phone)
-    return formatted || null
-  }
-
-  private verifyWhatsAppNumber(phone: string) {
-    return this.client.getNumberId(phone)
-  }
-
-  private async sendMessageToParticipant(
-    participant: any,
-    event: CreateSecretSanta,
-    serializedNumber: string,
-  ) {
-    const message = getParticipantMessage(participant, event)
-    await this.client.sendMessage(serializedNumber, message)
-  }
-
   private buildResult(
-    participant: any,
+    participant: Participant,
     status: 'success' | 'invalid-number' | 'error',
     phone?: string,
     error?: string,

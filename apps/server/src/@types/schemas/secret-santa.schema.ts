@@ -27,6 +27,7 @@ export type CreateSecretSanta = z.infer<typeof createSecretSantaSchema>
 
 export const secretSantaResultSchema = z.object({
   eventName: z.string(),
+  sent: z.boolean(),
   results: z.array(
     z.object({
       name: z.string(),
@@ -36,5 +37,4 @@ export const secretSantaResultSchema = z.object({
     }),
   ),
 })
-
 export type SecretSantaResult = z.infer<typeof secretSantaResultSchema>
